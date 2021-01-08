@@ -1,0 +1,10 @@
+table{
+    table-layout: fixed;
+    width: 100%;
+}
+table td{
+    word-break: break-all;
+}
+input[type=number]{
+    text-align: right;
+}
