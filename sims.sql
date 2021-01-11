@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2021 at 12:32 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.9
+-- Generation Time: Jan 11, 2021 at 05:14 PM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -392,7 +393,7 @@ ALTER TABLE `transactions`
 -- Constraints for table `employee_accounts`
 --
 ALTER TABLE `employee_accounts`
-  ADD CONSTRAINT `employee_accounts_ibfk_1` FOREIGN KEY (`Person_id`) REFERENCES `person_info` (`Person_id`);
+  ADD CONSTRAINT `employee_accounts_ibfk_1` FOREIGN KEY (`Person_id`) REFERENCES `person_info` (`Person_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `invoice`
