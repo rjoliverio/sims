@@ -19,13 +19,16 @@ if(isset($_SESSION['empid'])){
       $age = $_POST['age'];
       $gender = $_POST['gender'];
       $type = $_POST['type'];
-      $pass = $_POST['passw'];
+      $pass = md5($_POST['passw']);
     
-      mysqli_query($conn,"INSERT INTO `person_info`(`Fname`,`Lname`,`Email`,`Image`,`Contact_no`,`Address`,`Age`,`Gender`,`Person_type`) VALUES ('$fname','$lname','$email','$image','$pnum','$address','$age','$gender','$type')");
+        mysqli_query($conn,"INSERT INTO `person_info`(`Fname`,`Lname`,`Email`,`Image`,`Contact_no`,`Address`,`Age`,`Gender`,`Person_type`) VALUES ('$fname','$lname','$email','$image','$pnum','$address','$age','$gender','$type')");
       $ID=mysqli_query($conn,"SELECT max(Person_id) FROM person_info");
       $ID=mysqli_fetch_row($ID);
       $ID=$ID[0];
       mysqli_query($conn, "INSERT INTO `employee_accounts`(`Person_id`,`Password`) VALUES ('$ID','$pass')");
+  
+    
+      
       echo "<script>alert(\"Added\")</script>";
       
       header("Location: employeeregistration.php");
@@ -37,17 +40,17 @@ if(isset($_POST['saveNew'])){
     $fname= $_POST['fname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
-    $image = $_POST['image'];
+    $image = "../images/".$_POST['image'];
     $pnum = $_POST['pnum'];
     $address = $_POST['address'];
     $age = $_POST['age'];
     $gender = $_POST['gender'];
     $type = $_POST['type'];
-    $pass = $_POST['passw'];
+    $pass = md5( $_POST['passw']);
 
 
   
-    $queryS="UPDATE person_info SET Fname ='$fname', Lname ='$lname', Email = '$email',Image = '$image',Contact_no = '$pnum',Address = '$address',Age = '$age',Gender = '$gender', Person_type = '$type'  WHERE Person_id = '$id'";
+    $queryS="UPDATE person_info SET Fname ='$fname', Lname ='$lname', Email = '$email', Image = '$image',Contact_no = '$pnum', Address = '$address', Age = '$age',Gender = '$gender', Person_type = '$type'  WHERE Person_id = '$id'";
     $rs=mysqli_query($conn,$queryS);
     if($_POST['passw']!=""){
         $rs=mysqli_query($conn,"UPDATE employee_accounts SET Password = '$pass'");
@@ -65,7 +68,7 @@ if(isset($_REQUEST['id'])){
 	
 	// sending quer//
         mysqli_query($conn,"DELETE FROM person_info WHERE Person_id = '$id'");
-        mysqli_query($conn, "DELETE FROM employee_accounts WHERE Person_id = '$id'");
+      
 	
 	header("Location: employeeregistration.php");
 }
@@ -127,7 +130,7 @@ if(isset($_REQUEST['id'])){
        include('header.php');
     ?>
     <?php
-               $queryP="SELECT * FROM person_info";
+               $queryP="SELECT * FROM person_info INNER JOIN employee_accounts ON person_info.Person_id = employee_accounts.Person_id";
                $rs1=mysqli_query($conn,$queryP);
                $rs2=mysqli_query($conn,$queryP);
         ?>
@@ -137,10 +140,12 @@ if(isset($_REQUEST['id'])){
             <div class="tab">
                 <button class="tablinks" id="defaultOpen" onclick="openCity(event, 'Cashiers')">Cashiers</button>
                 <button class="tablinks" onclick="openCity(event, 'Managers')">Managers</button>
+              
             </div>
+            
             <div id="Cashiers" class="tabcontent">
                 <div class="container">
-                    <div class="table-wrapper">
+                    <div class="wrapper">
                         <div class="table-title">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -153,9 +158,11 @@ if(isset($_REQUEST['id'])){
 
                             </div>
                         </div>
+                        <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
+                                <th>Employee ID</th>
                                     <th>Last Name</th>
                                     <th>First Name</th>
                                     <th>Email</th>
@@ -175,7 +182,7 @@ if(isset($_REQUEST['id'])){
                                                 ?>
                                 <?php $id=$row['Person_id'];?>
                                 <tr>
-                                
+                                <td><?php echo $row['Employee_id'];?></td>
                                     <td><?php echo $row['Fname'];?></td>
                                     <td><?php echo $row['Lname'];?></td>
                                     <td><?php echo $row['Email'];?></td>
@@ -189,12 +196,35 @@ if(isset($_REQUEST['id'])){
                                         <a href="#editEmployeeModal<?php echo $id;?>" class="edit"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Edit">&#xE254;</i></a>
-                                        <?php echo "<a class='delete' href='contacts.php?id=$id'><i 
-                                                                class='material-icons' data-toggle='tooltip'title='Delete'>&#xE872;</i></a>";?>
+                                                <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
+                                            data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                                                title="Delete">&#xE872;</i></a>
+                                       
                                     </td>
                                    
 
                                 </tr>
+                                <div id="delEmployeeModal<?php echo $id;?>" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="employeeregistration.php" method="POST">
+                                                <div class="modal-header">
+
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Do you want to delete this?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-primary" data-dismiss="modal"
+                                                        value="No">
+                                                        <?php echo "<a class='btn btn-danger' href='employeeregistration.php?id=$id'>Yes</a>";?>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                
                                 <div id="editEmployeeModal<?php echo $id;?>" class="modal fade">
                                     <div class="modal-dialog">
@@ -243,7 +273,7 @@ if(isset($_REQUEST['id'])){
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Age</label>
-                                                        <input type="text" class="form-control" name="address"
+                                                        <input type="number" class="form-control" name="age"
                                                             value="<?php echo $row[7];?>" required>
                                                     </div>
                                                     <div class="form-group">
@@ -284,6 +314,7 @@ if(isset($_REQUEST['id'])){
                                     ?>
                             </tbody>
                         </table>
+                        </div>
 
                     </div>
                 </div>
@@ -307,6 +338,7 @@ if(isset($_REQUEST['id'])){
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
+                                    <th>Employee ID</th>
                                     <th>Last Name</th>
                                     <th>First Name</th>
                                     <th>Email</th>
@@ -325,7 +357,7 @@ if(isset($_REQUEST['id'])){
                                        ?>
                                 <?php $id=$col['Person_id'];?>
                                 <tr>
-                      
+                                <td><?php echo $col['Employee_id'];?></td>
                                     <td><?php echo $col[2];?></td>
                                     <td><?php echo $col[1];?></td>
                                     <td><?php echo $col[3];?></td>
@@ -339,12 +371,35 @@ if(isset($_REQUEST['id'])){
                                         <a href="#editEmployeeModal<?php echo $id;?>" class="edit"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Edit">&#xE254;</i></a>
-                                        <?php echo "<a class='delete' href='contacts.php?id=$id'><i 
-                                                                class='material-icons' data-toggle='tooltip'title='Delete'>&#xE872;</i></a>";?>
+                                                <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
+                                            data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                                                title="Delete">&#xE872;</i></a>
+                                       
                                     </td>
-                                 
-                                </tr>
+                                   
 
+                                </tr>
+                                <div id="delEmployeeModal<?php echo $id;?>" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="employeeregistration.php" method="POST">
+                                                <div class="modal-header">
+                                                   
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Do you want to delete this?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-primary" data-dismiss="modal"
+                                                        value="No">
+                                                        <?php echo "<a class='btn btn-danger' href='employeeregistration.php?id=$id'>Yes</a>";?>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 
                                 <div id="editEmployeeModal<?php echo $id;?>" class="modal fade">
                                     <div class="modal-dialog">
@@ -393,7 +448,7 @@ if(isset($_REQUEST['id'])){
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Age</label>
-                                                        <input type="text" class="form-control" name="address"
+                                                        <input type="number" class="form-control" name="age"
                                                             value="<?php echo $col[7];?>" required>
                                                     </div>
                                                     <div class="form-group">
@@ -466,6 +521,11 @@ if(isset($_REQUEST['id'])){
                                     <input type="email" class="form-control" name="email" required>
                                 </div>
                                 <div class="form-group">
+                                                        <label>Image</label>
+                                                        <input type="file" class="form-control" name="image"
+                                                            value="<?php echo $col[4];?>" required>
+                                                    </div>
+                                <div class="form-group">
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" name="pnum" required>
                                 </div>
@@ -475,7 +535,7 @@ if(isset($_REQUEST['id'])){
                                 </div>
                                 <div class="form-group">
                                     <label>Age</label>
-                                    <input type="text" class="form-control" name="age" required>
+                                    <input type="number" class="form-control" name="age" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Gender</label><br><br>
@@ -502,7 +562,7 @@ if(isset($_REQUEST['id'])){
                         </form>
                     </div>
                 </div>
-            </div>
+           </div>
             <!-- Edit Modal HTML -->
             <!-- Delete Modal HTML -->
 
