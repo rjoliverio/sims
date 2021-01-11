@@ -22,6 +22,7 @@
         <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.css" integrity="sha512-PZ83szWxZ41zcHUPd7NSgLfQ3Plzd7YmN0CHwYMmbR7puc6V/ac5Mm0t8QcXLD7sV/0AuKXectoLvjkQUdIz9g==" crossorigin="anonymous" />
 		<style>
         	/* table {
 				width: 100%;
@@ -49,7 +50,7 @@
 							<div class="card mt-1">
 								<h5 class="card-header text-center">Purchase Invoice</h5>
 								<div class="card-body " id="tablecontent">
-									<table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
+									<table class="table table-bordered " id="firstdataTable" width="100%" cellspacing="0">
 										<thead>
 											<th>Invoice ID</th>
 											<th>Date</th>
@@ -62,7 +63,7 @@
 										</thead>
 										<tbody>
 										<?php 
-										$sql = "SELECT * FROM invoice INNER JOIN transactions ON transactions.Trans_ID = invoice.Trans_id";
+										$sql = "SELECT * FROM invoice INNER JOIN transactions ON transactions.Trans_ID = invoice.Trans_id ORDER BY transactions.Date DESC";
 										$result=mysqli_query($conn,$sql);
 										?>
 										<?php if ($result->num_rows > 0) {
@@ -79,7 +80,7 @@
 																<td>".$row['Payment_type']."</td>
 																<td>".$row['Card_number'] ."</td>
 																<td>".$row['SIMS_code']."</td>
-																<td>".$row['Total']."</td>
+																<td>Php ".number_format($row['Total'], 2)."</td>
 																</tr>
 															";
 												}
@@ -115,7 +116,7 @@
 																<tr>
 																	<td>".$row['date']."</td>
 																	<td>".$row['sold']."</td>
-																	<td>".$res['total']."</td>
+																	<td> Php ".number_format($res['total'], 2)."</td>
 																	
 																</tr>
 															";
@@ -137,7 +138,12 @@
 		
 		<script>
 			$(function(){
-				$('.mydatatable').DataTable();
+				$('#firstdataTable').DataTable({
+					"order": [[ 1, "desc" ]]
+				});
+				$('.mydatatable').DataTable({
+					"order": [[ 0, "desc" ]]
+				});
 			});
 			
 		</script>
@@ -149,6 +155,8 @@
         <script src="../assets/demo/chart-bar-demo.js"></script> -->
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-        <script src="../assets/demo/datatables-demo.js"></script>
+		<script src="../assets/demo/datatables-demo.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js" integrity="sha512-Z/2pIbAzFuLlc7WIt/xifag7As7GuTqoBbLsVTgut69QynAIOclmweT6o7pkxVoGGfLcmPJKn/lnxyMNKBAKgg==" crossorigin="anonymous"></script>
+    	<script src="../js/search-suggestion.js"></script>
     </body>
 </html>

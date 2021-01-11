@@ -1,9 +1,9 @@
 <?php
     session_start();
-    // if(isset($_SESSION['empid'])){
-    //     header("Location: php/cashierdashboard.php");
-    // }
-    session_destroy();
+    if(isset($_SESSION['empid'])){
+        header("Location: php/cashierdashboard.php");
+    }
+    // session_destroy();
 ?>
 <!doctype html>
 <html lang="en">
