@@ -197,7 +197,7 @@ if(isset($_POST['sendsubmit'])){
                                 <tr>
                                 <td><a href="#sendmail<?php echo $id;?>" class="delete" data-toggle="modal"><i
                                                 class="material-icons" data-toggle="tooltip"
-                                                title="Contact">&#xE0CD;</i></a></td>
+                                                title="Contact">mail</i></a></td>
                                     <td><?php echo $row['Lname'];?></td>
                                     <td><?php echo $row['Fname'];?></td>
                                     <td><?php echo $row['Email'];?></td>
@@ -413,7 +413,7 @@ if(isset($_POST['sendsubmit'])){
                                 <tr>
                                 <td><a href="#sendmail<?php echo $id;?>" class="delete" data-toggle="modal"><i
                                                 class="material-icons" data-toggle="tooltip"
-                                                title="Contact">&#xE0CD;</i></a></td>
+                                                title="Contact">mail</i></a></td>
                                     <td><?php echo $col[2];?></td>
                                     <td><?php echo $col[1];?></td>
                                     <td><?php echo $col[3];?></td>
@@ -632,7 +632,7 @@ if(isset($_POST['sendsubmit'])){
                                 <tr>
                                     <td><a href="#sendmail<?php echo $id;?>" class="delete" data-toggle="modal"><i
                                                 class="material-icons" data-toggle="tooltip"
-                                                title="Contact">&#xE0CD;</i></a></td>
+                                                title="Contact">mail</i></a></td>
                                     <td><?php echo $col[2];?></td>
                                     <td><?php echo $col[1];?></td>
                                     <td><?php echo $col[3];?></td>
