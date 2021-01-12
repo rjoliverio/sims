@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 08, 2021 at 12:32 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.9
+-- Generation Time: Jan 12, 2021 at 03:45 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -131,7 +132,7 @@ CREATE TABLE `person_info` (
 --
 
 INSERT INTO `person_info` (`Person_id`, `Fname`, `Lname`, `Email`, `Image`, `Contact_no`, `Address`, `Age`, `Gender`, `Date_added`, `Person_type`) VALUES
-(1, 'Rj', 'Oliverio', 'rj@gmail.com', 'user.png', '9123456789', 'Compostela, USA', 45, 'Male', '2020-03-20 16:32:28', 'Cashier'),
+(1, 'Rj123', 'Oliverio', 'rj@gmail.com', '../images/user.png', '9123456789', 'asd', 45, 'Male', '2020-03-20 16:32:28', 'Cashier'),
 (2, 'Humera', 'Ardiente', 'hums@gmail.com', 'user.png', '9123654987', 'Lapu2x, Magellan', 35, 'Female', '2020-03-20 16:32:28', 'Manager'),
 (32, 'Aljann', 'Ondoy', 'aljann.ondoy@gmail.com', 'user.png', '09123456789', 'Tuburan, Cebu', 20, 'Male', '2020-03-25 20:41:45', 'Supplier'),
 (33, 'Rj', 'Oliverio', 'oliverioyani@yahoo.com', 'user.png', '09238694442', 'poblacion,compostela,cebu', 20, 'Male', '2020-03-26 21:11:22', 'Customer');
@@ -352,7 +353,7 @@ ALTER TABLE `invoice`
 -- AUTO_INCREMENT for table `person_info`
 --
 ALTER TABLE `person_info`
-  MODIFY `Person_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `Person_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -376,7 +377,7 @@ ALTER TABLE `simscode_transaction`
 -- AUTO_INCREMENT for table `supplier_store`
 --
 ALTER TABLE `supplier_store`
-  MODIFY `Supplier_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Supplier_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -392,7 +393,7 @@ ALTER TABLE `transactions`
 -- Constraints for table `employee_accounts`
 --
 ALTER TABLE `employee_accounts`
-  ADD CONSTRAINT `employee_accounts_ibfk_1` FOREIGN KEY (`Person_id`) REFERENCES `person_info` (`Person_id`);
+  ADD CONSTRAINT `employee_accounts_ibfk_1` FOREIGN KEY (`Person_id`) REFERENCES `person_info` (`Person_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `invoice`
@@ -431,7 +432,7 @@ ALTER TABLE `simscode_transaction`
 -- Constraints for table `supplier_store`
 --
 ALTER TABLE `supplier_store`
-  ADD CONSTRAINT `Person_pkfk` FOREIGN KEY (`Person_id`) REFERENCES `person_info` (`Person_id`);
+  ADD CONSTRAINT `Person_pkfk` FOREIGN KEY (`Person_id`) REFERENCES `person_info` (`Person_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `transactions`
