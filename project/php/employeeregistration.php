@@ -183,8 +183,8 @@ if(isset($_REQUEST['id'])){
                                 <?php $id=$row['Person_id'];?>
                                 <tr>
                                 <td><?php echo $row['Employee_id'];?></td>
-                                    <td><?php echo $row['Fname'];?></td>
                                     <td><?php echo $row['Lname'];?></td>
+                                    <td><?php echo $row['Fname'];?></td>
                                     <td><?php echo $row['Email'];?></td>
                                     <td><?php echo $row['Contact_no'];?></td>
                                     <td><?php echo $row['Address'];?></td>
@@ -322,7 +322,7 @@ if(isset($_REQUEST['id'])){
 
             <div id="Managers" class="tabcontent">
                 <div class="container">
-                    <div class="table-wrapper">
+                    <div class="wrapper">
                         <div class="table-title">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -335,6 +335,7 @@ if(isset($_REQUEST['id'])){
 
                             </div>
                         </div>
+			<div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -488,7 +489,7 @@ if(isset($_REQUEST['id'])){
 
                             </tbody>
                         </table>
-
+			</div>
                     </div>
                 </div>
             </div>

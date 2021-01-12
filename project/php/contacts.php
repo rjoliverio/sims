@@ -13,7 +13,7 @@ if(isset($_SESSION['empid'])){
       $fname= $_POST['fname'];
       $lname = $_POST['lname'];
       $email = $_POST['email'];
-      $image = $_POST['image'];
+      $image = "../images/".$_POST['image'];
       $pnum = $_POST['pnum'];
       $address = $_POST['address'];
       $age = $_POST['age'];
@@ -37,7 +37,7 @@ if(isset($_POST['saveEmp'])){
     $fname= $_POST['fname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
-    $image = $_POST['image'];
+    $image = "../images/".$_POST['image'];
     $pnum = $_POST['pnum'];
     $address = $_POST['address'];
     $age = $_POST['age'];
@@ -57,7 +57,6 @@ if(isset($_REQUEST['id'])){
 	
 	// sending quer//
         mysqli_query($conn,"DELETE FROM person_info WHERE Person_id = '$id'");
-        mysqli_query($conn, "DELETE FROM supplier_store WHERE Person_id = '$id'");
 	
 	header("Location: contacts.php");
 }
@@ -163,7 +162,7 @@ if(isset($_POST['sendsubmit'])){
             </div>
             <div id="Cashiers" class="tabcontent">
                 <div class="container">
-                    <div class="table-wrapper">
+                    <div class="wrapper">
                         <div class="table-title">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -172,6 +171,7 @@ if(isset($_POST['sendsubmit'])){
 
                             </div>
                         </div>
+                        <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -198,8 +198,8 @@ if(isset($_POST['sendsubmit'])){
                                 <td><a href="#sendmail<?php echo $id;?>" class="delete" data-toggle="modal"><i
                                                 class="material-icons" data-toggle="tooltip"
                                                 title="Contact">&#xE0CD;</i></a></td>
-                                    <td><?php echo $row['Fname'];?></td>
                                     <td><?php echo $row['Lname'];?></td>
+                                    <td><?php echo $row['Fname'];?></td>
                                     <td><?php echo $row['Email'];?></td>
                                     <td><?php echo $row['Contact_no'];?></td>
                                     <td><?php echo $row['Address'];?></td>
@@ -208,18 +208,45 @@ if(isset($_POST['sendsubmit'])){
                                     <td><?php echo $row['Date_added'];?></td>
                                     <?php if($res['Person_type']=='Manager'){
                                                         ?>
-                                    <td>
+                                      <td>
                                         <a href="#editEmployeeModal<?php echo $id;?>" class="edit"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Edit">&#xE254;</i></a>
-                                        <?php echo "<a class='delete' href='contacts.php?id=$id'><i 
-                                                                class='material-icons' data-toggle='tooltip'title='Delete'>&#xE872;</i></a>";?>
+                                                <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
+                                            data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                                                title="Delete">&#xE872;</i></a>
+                                       
                                     </td>
+                        
+                               
+                                    
                                     <?php
                                                     }
                                                     ?>
 
                                 </tr>
+                                
+                                <div id="delEmployeeModal<?php echo $id;?>" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="contacts.php" method="POST">
+                                                <div class="modal-header">
+
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Do you want to delete this?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-primary" data-dismiss="modal"
+                                                        value="No">
+                                                        <?php echo "<a class='btn btn-danger' href='contacts.php?id=$id'>Yes</a>";?>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="sendmail<?php echo $id;?>" class="modal fade">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
@@ -313,7 +340,7 @@ if(isset($_POST['sendsubmit'])){
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Age</label>
-                                                        <input type="text" class="form-control" name="address"
+                                                        <input type="text" class="form-control" name="age"
                                                             value="<?php echo $row[7];?>" required>
                                                     </div>
                                                     <div class="form-group">
@@ -344,6 +371,7 @@ if(isset($_POST['sendsubmit'])){
                                     ?>
                             </tbody>
                         </table>
+                        </div>
 
                     </div>
                 </div>
@@ -351,7 +379,7 @@ if(isset($_POST['sendsubmit'])){
 
             <div id="Managers" class="tabcontent">
                 <div class="container">
-                    <div class="table-wrapper">
+                    <div class="wrapper">
                         <div class="table-title">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -360,6 +388,7 @@ if(isset($_POST['sendsubmit'])){
 
                             </div>
                         </div>
+                        <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -395,18 +424,45 @@ if(isset($_POST['sendsubmit'])){
                                     <td><?php echo $col[9];?></td>
                                     <?php if($res['Person_type']=='Manager'){
                                                         ?>
-                                    <td>
+                                     <td>
                                         <a href="#editEmployeeModal<?php echo $id;?>" class="edit"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Edit">&#xE254;</i></a>
-                                        <?php echo "<a class='delete' href='contacts.php?id=$id'><i 
-                                                                class='material-icons' data-toggle='tooltip'title='Delete'>&#xE872;</i></a>";?>
+                                                <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
+                                            data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                                                title="Delete">&#xE872;</i></a>
+                                       
                                     </td>
+                        
+                               
+                                    
                                     <?php
                                                     }
                                                     ?>
-                                </tr>
 
+                                </tr>
+                                
+                                <div id="delEmployeeModal<?php echo $id;?>" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="contacts.php" method="POST">
+                                                <div class="modal-header">
+
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Do you want to delete this?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-primary" data-dismiss="modal"
+                                                        value="No">
+                                                        <?php echo "<a class='btn btn-danger' href='contacts.php?id=$id'>Yes</a>";?>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="sendmail<?php echo $id;?>" class="modal fade">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
@@ -500,7 +556,7 @@ if(isset($_POST['sendsubmit'])){
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Age</label>
-                                                        <input type="text" class="form-control" name="address"
+                                                        <input type="text" class="form-control" name="age"
                                                             value="<?php echo $col[7];?>" required>
                                                     </div>
                                                     <div class="form-group">
@@ -530,6 +586,7 @@ if(isset($_POST['sendsubmit'])){
 
                             </tbody>
                         </table>
+                        </div>
 
                     </div>
                 </div>
@@ -537,7 +594,7 @@ if(isset($_POST['sendsubmit'])){
 
             <div id="Supply" class="tabcontent">
                 <div class="container">
-                    <div class="table-wrapper">
+                    <div class="wrapper">
                         <div class="table-title">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -554,6 +611,7 @@ if(isset($_POST['sendsubmit'])){
 
                             </div>
                         </div>
+                        <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -583,17 +641,45 @@ if(isset($_POST['sendsubmit'])){
 
                                     <?php if($res['Person_type']=='Manager'){
                                                         ?>
-                                    <td>
+                                <td>
                                         <a href="#editEmployeeModal<?php echo $id;?>" class="edit"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Edit">&#xE254;</i></a>
-                                        <?php echo "<a class='delete' href='contacts.php?id=$id'><i 
-                                                                class='material-icons' data-toggle='tooltip'title='Delete'>&#xE872;</i></a>";?>
+                                                <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
+                                            data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                                                title="Delete">&#xE872;</i></a>
+                                       
                                     </td>
+                        
+                               
+                                    
                                     <?php
                                                     }
                                                     ?>
+
                                 </tr>
+                                
+                                <div id="delEmployeeModal<?php echo $id;?>" class="modal fade">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form action="contacts.php" method="POST">
+                                                <div class="modal-header">
+
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-hidden="true">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4>Do you want to delete this?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <input type="button" class="btn btn-primary" data-dismiss="modal"
+                                                        value="No">
+                                                        <?php echo "<a class='btn btn-danger' href='contacts.php?id=$id'>Yes</a>";?>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div id="sendmail<?php echo $id;?>" class="modal fade">
                                     <div class="modal-dialog modal-lg" role="document">
                                         <div class="modal-content">
@@ -682,7 +768,7 @@ if(isset($_POST['sendsubmit'])){
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Age</label>
-                                                        <input type="text" class="form-control" name="address"
+                                                        <input type="text" class="form-control" name="age"
                                                             value="<?php echo $col[7];?>" required>
                                                     </div>
 
@@ -713,6 +799,7 @@ if(isset($_POST['sendsubmit'])){
 
                             </tbody>
                         </table>
+                        </div>
 
                     </div>
                 </div>
