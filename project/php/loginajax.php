@@ -6,7 +6,7 @@ session_start();
             $res=runQuery($conn,"SELECT * FROM employee_accounts WHERE Employee_id='".$_POST['empid']."'");
             if(mysqli_num_rows($res)>0){
                 $res=mysqli_fetch_array($res);
-                if($res['Password']==$_POST['pass']){
+                if($res['Password']==md5($_POST['pass'])){
                     echo ('Login');
                     $_SESSION['empid']=$res['Employee_id'];
                     $_SESSION['empdetails']=$res['Person_id'];
