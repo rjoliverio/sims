@@ -1,7 +1,7 @@
 <?php
     include_once('dbconnect.php');
     if(isset($_POST['result'])){
-        $sql="SELECT * FROM simscode_membership WHERE SIMS_code={$_POST['result']}";
+        $sql="SELECT * FROM simscode_membership WHERE SIMS_code={$_POST['result']} AND active='1'";
         $res=mysqli_query($conn,$sql);
         if(mysqli_num_rows($res)>0){
             $res=mysqli_fetch_assoc($res);

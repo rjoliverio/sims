@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2021 at 03:45 AM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.3.11
+-- Generation Time: Jan 13, 2021 at 10:14 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -39,8 +38,8 @@ CREATE TABLE `employee_accounts` (
 --
 
 INSERT INTO `employee_accounts` (`Employee_id`, `Person_id`, `Password`) VALUES
-(00000001, 1, '123'),
-(00000002, 2, '123');
+(00000001, 1, '202cb962ac59075b964b07152d234b70'),
+(00000002, 2, '202cb962ac59075b964b07152d234b70');
 
 -- --------------------------------------------------------
 
@@ -406,27 +405,27 @@ ALTER TABLE `invoice`
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`Trans_id`) REFERENCES `transactions` (`Trans_id`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`Prod_id`) REFERENCES `products` (`Prod_id`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`Trans_id`) REFERENCES `transactions` (`Trans_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`Prod_id`) REFERENCES `products` (`Prod_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`Supplier_id`) REFERENCES `supplier_store` (`Supplier_id`);
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`Supplier_id`) REFERENCES `supplier_store` (`Supplier_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `simscode_membership`
 --
 ALTER TABLE `simscode_membership`
-  ADD CONSTRAINT `simscode_membership_ibfk_1` FOREIGN KEY (`Person_id`) REFERENCES `person_info` (`Person_id`);
+  ADD CONSTRAINT `simscode_membership_ibfk_1` FOREIGN KEY (`Person_id`) REFERENCES `person_info` (`Person_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `simscode_transaction`
 --
 ALTER TABLE `simscode_transaction`
-  ADD CONSTRAINT `simscode_transaction_ibfk_1` FOREIGN KEY (`Invoice_id`) REFERENCES `invoice` (`Invoice_id`),
-  ADD CONSTRAINT `simscode_transaction_ibfk_2` FOREIGN KEY (`SIMS_code`) REFERENCES `simscode_membership` (`SIMS_code`);
+  ADD CONSTRAINT `simscode_transaction_ibfk_1` FOREIGN KEY (`Invoice_id`) REFERENCES `invoice` (`Invoice_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `simscode_transaction_ibfk_2` FOREIGN KEY (`SIMS_code`) REFERENCES `simscode_membership` (`SIMS_code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `supplier_store`

@@ -25,7 +25,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard</title>
+        <title>Member Profile</title>
         <link href="../css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
@@ -101,7 +101,7 @@
                                             <span class="text-center point-size"><?php echo number_format($row['Points'],2);?></span>
                                         </div>
                                         <div class="card-footer text-muted">
-                                            <button class="btn btn-success btn-block <?php if($row['Active']==1){ echo "disabled"; } ?>">Activate</button>
+                                            <a href="activatesimscode.php?codeid=<?php echo $row['SIMS_code']; ?>" class="text-decoration-none btn btn-success btn-block <?php if($row['Active']==1){ echo "disabled"; } ?>">Activate</a>
                                         </div>
                                     </div>
                                 </div>
