@@ -42,10 +42,11 @@
                     $query=mysqli_query($conn,"SELECT * FROM employee_accounts INNER JOIN person_info ON employee_accounts.Person_id=person_info.Person_id WHERE employee_accounts.Employee_id='{$_SESSION['empid']}'")or die(mysqli_error());
                     $row=mysqli_fetch_array($query);
                 ?>
+                <center>
                     <form method="post" action="#">
                         <div class="form-group">
                                 <img src="../images/<?php echo $row['Image']; ?>" width='50' height='50'><br>
-                                <input type="file" name="image">
+                                <input type="file" name="image" class="profile-image">
                         </div>
                             <div class="form-group">
                                 <label><b>First Name</b></label>
@@ -83,6 +84,7 @@
                                 <input type="submit" name="submit" class="btn btn-primary" style="width:20em; margin:0;">
                             </div>
                     </form>
+                </center>
                 </div>
             </div>
         </main>

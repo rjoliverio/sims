@@ -10267,5 +10267,12 @@ body {
 }
 
 .profile {
-  margin-bottom: 50px;
+  margin-bottom: 100px;
+  width: 500px;
+  margin: auto;
+}
+
+.profile-image {
+  margin-left: 200px;
+  margin-top: 10px;
 }
