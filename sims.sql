@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 13, 2021 at 10:14 AM
+-- Generation Time: Jan 13, 2021 at 10:39 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.9
 
@@ -398,8 +398,8 @@ ALTER TABLE `employee_accounts`
 -- Constraints for table `invoice`
 --
 ALTER TABLE `invoice`
-  ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`Trans_id`) REFERENCES `transactions` (`Trans_id`),
-  ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`SIMS_code`) REFERENCES `simscode_membership` (`SIMS_code`);
+  ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`Trans_id`) REFERENCES `transactions` (`Trans_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`SIMS_code`) REFERENCES `simscode_membership` (`SIMS_code`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -437,7 +437,7 @@ ALTER TABLE `supplier_store`
 -- Constraints for table `transactions`
 --
 ALTER TABLE `transactions`
-  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`Employee_id`) REFERENCES `employee_accounts` (`Employee_id`);
+  ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`Employee_id`) REFERENCES `employee_accounts` (`Employee_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
