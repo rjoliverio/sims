@@ -71,7 +71,7 @@
                                         <td><?php echo $row['Points']; ?></td>
                                         <td><?php echo $row['Date_created']; ?></td>
                                         <td><?php echo $row['Expiry_date']; ?></td>
-                                        <td><a href="#" class="text-decoraton-none mr-2 text-danger" data-toggle="modal" data-target="#deleteModal<?php echo $row['SIMS_code']; ?>"><i class="fas fa-user-minus"></i></a> <?php if($row['Active']==1){ ?><a href="activatesimscode.php?deleteid=<?php echo $row['SIMS_code']; ?>" class="text-decoraton-none text-success"><i class="fas fa-toggle-on"></i></i></a> <?php }else{ ?><a href="activatesimscode.php?activateid=<?php echo $row['SIMS_code']; ?>" class="text-decoraton-none text-warning"><i class="fas fa-toggle-off"></i></a> <?php } ?></td>
+                                        <td><a href="#" class="text-decoraton-none mr-2 text-danger" data-toggle="modal" data-target="#deleteModal<?php echo $row['SIMS_code']; ?>"><i class="fas fa-user-minus"></i></a><?php if($row['Active']==1){ ?><a href="activatesimscode.php?deleteid=<?php echo $row['SIMS_code']; ?>" class="text-decoraton-none text-success"><i class="fas fa-toggle-on"></i></i></a><?php }else{ ?><a href="activatesimscode.php?activateid=<?php echo $row['SIMS_code']; ?>" class="text-decoraton-none text-warning"><i class="fas fa-toggle-off"></i></a> <?php } ?></td>
                                     </tr>
                                     <!-- DELETE PRODUCT -->
                                     <div class="modal fade" id="deleteModal<?php echo $row['SIMS_code']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
