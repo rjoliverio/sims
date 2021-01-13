@@ -10265,3 +10265,7 @@ body {
 .cardgradient4{
   background:linear-gradient(to right,#FF416C,#FF4B2B)!important;
 }
+
+.profile {
+  margin-bottom: 50px;
+}
