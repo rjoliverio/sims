@@ -13,7 +13,6 @@ if(isset($_SESSION['empid'])){
       $fname= $_POST['fname'];
       $lname = $_POST['lname'];
       $email = $_POST['email'];
-      $image = "../images/".$_POST['image'];
       $pnum = $_POST['pnum'];
       $address = $_POST['address'];
       $age = $_POST['age'];
@@ -22,7 +21,7 @@ if(isset($_SESSION['empid'])){
       
       $pass = md5($_POST['passw']);
     
-        mysqli_query($conn,"INSERT INTO `person_info`(`Fname`,`Lname`,`Email`,`Image`,`Contact_no`,`Address`,`Age`,`Gender`,`Person_type`) VALUES ('$fname','$lname','$email','$image','$pnum','$address','$age','$gender','$type')");
+        mysqli_query($conn,"INSERT INTO `person_info`(`Fname`,`Lname`,`Email`,`Contact_no`,`Address`,`Age`,`Gender`,`Person_type`) VALUES ('$fname','$lname','$email','$pnum','$address','$age','$gender','$type')");
       $ID=mysqli_query($conn,"SELECT max(Person_id) FROM person_info");
       $ID=mysqli_fetch_row($ID);
       $ID=$ID[0];
@@ -516,11 +515,6 @@ if(isset($_REQUEST['id'])){
                                     <label>Email</label>
                                     <input type="email" class="form-control" name="email" required>
                                 </div>
-                                <div class="form-group">
-                                                        <label>Image</label>
-                                                        <input type="file" class="form-control" name="image"
-                                                            value="<?php echo $col[4];?>" required>
-                                                    </div>
                                 <div class="form-group">
                                     <label>Contact Number</label>
                                     <input type="text" class="form-control" name="pnum" required>

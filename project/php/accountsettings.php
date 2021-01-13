@@ -24,6 +24,7 @@
         <link href="../css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/easy-autocomplete.css" integrity="sha512-PZ83szWxZ41zcHUPd7NSgLfQ3Plzd7YmN0CHwYMmbR7puc6V/ac5Mm0t8QcXLD7sV/0AuKXectoLvjkQUdIz9g==" crossorigin="anonymous" />
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -81,6 +82,14 @@
                                 <input type="text" class="form-control" name="age" style="width:20em;" placeholder="Enter your Fullname" value="<?php echo $row['Age']; ?>"/>
                             </div>
                             <div class="form-group">
+                                <label><b>New Password</b></label>
+                                <input type="password" class="form-control" name="pass" style="width:20em;" placeholder="Enter your new password..."/>
+                            </div>
+                            <div class="form-group">
+                                <label><b>Repeat Password</b></label>
+                                <input type="password" class="form-control" name="newpass" style="width:20em;" placeholder="Repeat password..."/>
+                            </div>
+                            <div class="form-group">
                                 <input type="submit" name="submit" class="btn btn-primary" style="width:20em; margin:0;">
                             </div>
                     </form>
@@ -92,15 +101,21 @@
     </div>
     <?php
         if(isset($_POST['submit'])){
-            $image = $_POST['image'];
+            $image = $row['Image'];
+            if($_POST['image']!=""){
+                $image = $_POST['image'];
+            }
             $fname = $_POST['fname'];
             $lname = $_POST['lname'];
             $contact_no = $_POST['contact_number'];
             $address = $_POST['address'];
             $age = $_POST['age'];
-            
+            $pass=md5($row['Password']);
+            if($_POST['pass']!=""&&$_POST['pass']==$_POST['pass']){
+                $pass=md5($_POST['pass']);
+            }
             $query = "UPDATE employee_accounts INNER JOIN person_info ON employee_accounts.Person_id=person_info.Person_id  SET Image = '$image', Fname = '$fname', Lname = '$lname', 
-            Contact_no = '$contact_no', Address = '$address',Age = '$age' WHERE employee_accounts.Employee_id='{$_SESSION['empid']}'";
+            Contact_no = '$contact_no', Address = '$address',Age = '$age',Password='$pass' WHERE employee_accounts.Employee_id='{$_SESSION['empid']}'";
             $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
             ?>
             <script type="text/javascript">
@@ -121,5 +136,7 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="../assets/demo/datatables-demo.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-autocomplete/1.3.5/jquery.easy-autocomplete.min.js" integrity="sha512-Z/2pIbAzFuLlc7WIt/xifag7As7GuTqoBbLsVTgut69QynAIOclmweT6o7pkxVoGGfLcmPJKn/lnxyMNKBAKgg==" crossorigin="anonymous"></script>
+        <script src="../js/search-suggestion.js"></script>
     </body>
 </html>
