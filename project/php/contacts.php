@@ -37,13 +37,12 @@ if(isset($_POST['saveEmp'])){
     $fname= $_POST['fname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
-    $image = "../images/".$_POST['image'];
     $pnum = $_POST['pnum'];
     $address = $_POST['address'];
     $age = $_POST['age'];
     $gender = $_POST['gender'];
   
-    $queryS="UPDATE person_info SET Fname ='$fname', Lname ='$lname', Email = '$email',Image = '$image',Contact_no = '$pnum',Address = '$address',Age = '$age',Gender = '$gender'  WHERE Person_id = '$id'";
+    $queryS="UPDATE person_info SET Fname ='$fname', Lname ='$lname', Email = '$email',Contact_no = '$pnum',Address = '$address',Age = '$age',Gender = '$gender'  WHERE Person_id = '$id'";
     $rs=mysqli_query($conn,$queryS);
     echo "Saved!";
     
@@ -324,11 +323,6 @@ if(isset($_POST['sendsubmit'])){
                                                             value="<?php echo $row[3];?>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Image</label>
-                                                        <input type="file" class="form-control" name="image"
-                                                            value="<?php echo $row[4];?>" >
-                                                    </div>
-                                                    <div class="form-group">
                                                         <label>Contact Number</label>
                                                         <input type="text" class="form-control" name="pnum"
                                                             value="<?php echo $row[5];?>" required>
@@ -428,9 +422,16 @@ if(isset($_POST['sendsubmit'])){
                                         <a href="#editEmployeeModal<?php echo $id;?>" class="edit"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Edit">&#xE254;</i></a>
-                                                <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
-                                            data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
-                                                title="Delete">&#xE872;</i></a>
+                                                <?php if($res['Person_id'] != $col['Person_id']){
+                                                    ?>
+                                                         <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
+                                                         data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                                                             title="Delete">&#xE872;</i></a>
+                                                             <?php
+                                                }
+                                               
+                                                ?>
+                                       
                                        
                                     </td>
                         
@@ -539,11 +540,7 @@ if(isset($_POST['sendsubmit'])){
                                                         <input type="email" class="form-control" name="email"
                                                             value="<?php echo $col[3];?>" required>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>Image</label>
-                                                        <input type="file" class="form-control" name="image"
-                                                            value="<?php echo $col[4];?>" >
-                                                    </div>
+                                        
                                                     <div class="form-group">
                                                         <label>Contact Number</label>
                                                         <input type="text" class="form-control" name="pnum"
