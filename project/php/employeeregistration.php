@@ -13,12 +13,13 @@ if(isset($_SESSION['empid'])){
       $fname= $_POST['fname'];
       $lname = $_POST['lname'];
       $email = $_POST['email'];
-      $image = $_POST['image'];
+      $image = "../images/".$_POST['image'];
       $pnum = $_POST['pnum'];
       $address = $_POST['address'];
       $age = $_POST['age'];
       $gender = $_POST['gender'];
       $type = $_POST['type'];
+      
       $pass = md5($_POST['passw']);
     
         mysqli_query($conn,"INSERT INTO `person_info`(`Fname`,`Lname`,`Email`,`Image`,`Contact_no`,`Address`,`Age`,`Gender`,`Person_type`) VALUES ('$fname','$lname','$email','$image','$pnum','$address','$age','$gender','$type')");
@@ -40,19 +41,16 @@ if(isset($_POST['saveNew'])){
     $fname= $_POST['fname'];
     $lname = $_POST['lname'];
     $email = $_POST['email'];
-    $image = "../images/".$_POST['image'];
     $pnum = $_POST['pnum'];
     $address = $_POST['address'];
     $age = $_POST['age'];
     $gender = $_POST['gender'];
     $type = $_POST['type'];
-    $pass = md5( $_POST['passw']);
 
-
-  
-    $queryS="UPDATE person_info SET Fname ='$fname', Lname ='$lname', Email = '$email', Image = '$image',Contact_no = '$pnum', Address = '$address', Age = '$age',Gender = '$gender', Person_type = '$type'  WHERE Person_id = '$id'";
+    $queryS="UPDATE person_info SET Fname ='$fname', Lname ='$lname', Email = '$email',Contact_no = '$pnum', Address = '$address', Age = '$age',Gender = '$gender', Person_type = '$type'  WHERE Person_id = '$id'";
     $rs=mysqli_query($conn,$queryS);
     if($_POST['passw']!=""){
+        $pass = md5( $_POST['passw']);
         $rs=mysqli_query($conn,"UPDATE employee_accounts SET Password = '$pass'");
     }
     
@@ -196,6 +194,7 @@ if(isset($_REQUEST['id'])){
                                         <a href="#editEmployeeModal<?php echo $id;?>" class="edit"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Edit">&#xE254;</i></a>
+                                                
                                                 <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Delete">&#xE872;</i></a>
@@ -257,11 +256,6 @@ if(isset($_REQUEST['id'])){
                                                             value="<?php echo $row[3];?>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Image</label>
-                                                        <input type="file" class="form-control" name="image"
-                                                            value="<?php echo $row[4];?>" required>
-                                                    </div>
-                                                    <div class="form-group">
                                                         <label>Contact Number</label>
                                                         <input type="text" class="form-control" name="pnum"
                                                             value="<?php echo $row[5];?>" required>
@@ -290,7 +284,7 @@ if(isset($_REQUEST['id'])){
                                                         <input type="radio" name="type" value="Manager" required>&nbsp<label>Manager</label>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Password</label>
+                                                        <label>Password (Optional)</label>
                                                         <input type="password" class="form-control" name="passw">
                                                     </div>
                                                 </div>
@@ -372,9 +366,15 @@ if(isset($_REQUEST['id'])){
                                         <a href="#editEmployeeModal<?php echo $id;?>" class="edit"
                                             data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
                                                 title="Edit">&#xE254;</i></a>
-                                                <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
-                                            data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
-                                                title="Delete">&#xE872;</i></a>
+                                                <?php if($res['Person_id'] != $col['Person_id']){
+                                                    ?>
+                                                         <a href="#delEmployeeModal<?php echo $id;?>" class="delete"
+                                                         data-toggle="modal"><i class="material-icons" data-toggle="tooltip"
+                                                             title="Delete">&#xE872;</i></a>
+                                                             <?php
+                                                }
+                                               
+                                                ?>
                                        
                                     </td>
                                    
@@ -433,11 +433,6 @@ if(isset($_REQUEST['id'])){
                                                             value="<?php echo $col[3];?>" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Image</label>
-                                                        <input type="file" class="form-control" name="image"
-                                                            value="<?php echo $col[4];?>" required>
-                                                    </div>
-                                                    <div class="form-group">
                                                         <label>Contact Number</label>
                                                         <input type="text" class="form-control" name="pnum"
                                                             value="<?php echo $col[5];?>" required>
@@ -466,7 +461,7 @@ if(isset($_REQUEST['id'])){
                                                         <input type="radio" name="type" value="Manager" required>&nbsp<label>Manager</label>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Password</label>
+                                                        <label>Password (Optional)</label>
                                                         <input type="password" class="form-control" name="passw" required>
                                                     </div>
                                                 </div>

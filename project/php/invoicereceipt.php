@@ -19,7 +19,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Purchase</title>
-    <link href="http://localhost/project/css/styles.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
     <!-- <link href="../css/purchase.css" rel="stylesheet" /> -->
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"crossorigin="anonymous"></script>
@@ -57,7 +57,7 @@
                     <hr>
                     <div class="text-center mb-3 purchasearea">
                         <div class='text-center m-auto'>
-                            <img src='http://localhost/project/images/sims2.png' width='150' height='150'>
+                            <img src='../images/sims2.png' width='150' height='150'>
                             <h4>ShopNimo Sales Receipt</h4>
                             <span>Nasipit, Talamban, Cebu 6000</span><br>
                             <span>Contact No. 0978123456</span>
@@ -144,7 +144,7 @@
                     importCSS: true,            // import parent page css
                     importStyle: true,         // import style tags
                     printContainer: true,       // print outer container/$.selector
-                    loadCSS: ["http://localhost/project/css/styles.css","https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"],
+                    loadCSS: ["/sims/project/css/styles.css","https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"],
                     pageTitle: "ShopNimo Sales Receipt",              // add title to print page
                     removeInline: false,        // remove inline styles from print elements
                     printDelay: 333,            // variable print delay

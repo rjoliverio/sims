@@ -76,6 +76,11 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="simscodescan.php">QR Scan</a></nav>
                             </div>
+                            <?php if($res['Person_type']=="Manager"){ ?>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="simsmembers.php">Members</a></nav>
+                            </div>
+                            <?php } ?>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                
                             </div>
